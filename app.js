@@ -1,10 +1,13 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-const spotifyClient = require('./spotify-client');
+require('./db/db-config');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var app = express();
+//routes
+const SongAPI = require('./routes/songs-route');
+
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -12,7 +15,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-app.get('/api/search',require('./controllers/search-controller')(spotifyClient));
+app.use('/api/song',SongAPI);
 
 module.exports = app;
