@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');;
-const urlMongo = 'mongodb://localhost/syncband';
+const urlMongo = process.env.MONGODB_URI;
 
 mongoose.connect(urlMongo,{ useNewUrlParser: true });
 
