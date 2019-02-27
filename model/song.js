@@ -5,12 +5,10 @@ const _schema = {
     name: {
         type: String,
         required:true,
-        index: true
     },
-    description: {
+    artist: {
         type: String,
         required:true,
-        index: true 
     },
     bpm: {
         type: Number,
@@ -19,4 +17,5 @@ const _schema = {
 };
 
 const SongSchema = new Schema(_schema);
+SongSchema.index({name: 'text', artist:'text'});
 module.exports = mongoose.model('Song', SongSchema);
