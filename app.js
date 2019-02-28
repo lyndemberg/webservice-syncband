@@ -14,7 +14,9 @@ const credentials = {
   redirectUri: process.env.REDIRECT_URI
 };
 var client = new SpotifyWebApi(credentials);
+//aux
 var tokenExpirationEpoch;
+var numberOfTimesUpdated = 0;
 const app = express();
 
 app.use(logger('dev'));
@@ -27,7 +29,7 @@ app.use('/api/song',SongAPI);
 app.get('/api/song/search',(req,res)=>{
   if(requestNumber==0){
     getCodeAuthorizathion();
-    https.get('')
+    refresh();
   }
   const query = req.query.q;
   client.searchTracks(query)
@@ -67,8 +69,8 @@ function getCodeAuthorizathion(){
   console.log('autorizando o client');
 }
 
-var numberOfTimesUpdated = 0;
-setInterval(function() {
+function refresh(){
+  setInterval(function() {
     console.log(
       'Time left: ' +
         Math.floor(tokenExpirationEpoch - new Date().getTime() / 1000) +
@@ -96,5 +98,6 @@ setInterval(function() {
       );
     }
   }, 1000);
+}
 
 module.exports = app;
