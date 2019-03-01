@@ -1,1 +1,1 @@
-web: node ./bin/www
+web: node ./bin/www ID=$ID SECRET=$SECRET
